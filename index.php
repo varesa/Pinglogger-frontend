@@ -12,13 +12,13 @@
     }
     
     if($_GET['factor'] == null) {
-	$factor = 10;
+	$factor = 20;
     } else {
 	$factor = $_GET['factor'];
     }
     
     if($_GET['scale'] != null) {
-	$mode=1:
+	$mode=1;
     } else {				//If not scaling, must be fixed
 	$mode=0;
     }
@@ -33,6 +33,6 @@
     <table>
 	<tr><td>Fixed: (default)&nbsp;&nbsp;</td>  <td> X<input name="sizex" type="text" size=5 value="<?php echo $sizex; ?>">, Y<input name="sizey" type="text" size=5 value="<?php echo $sizey; ?>"></td><td> <input name="fixed" type="submit" value="Set and refresh"></td></tr>
 	<tr><td>Scale:</td>                        <td> Factor <input name="factor" type="text" size=8 value="<?php echo $factor; ?>"> </td><td> <input name="scale" type="submit" value="Scale and refresh"></td></tr>
-	<tr><td></td><td> <input type="button" onclick="window.location.href='index.php'" value="Reset"></form></td></tr>
+	<tr><td></td><td></td><td> <input type="button" onclick="window.location.href='index.php'" value="Reset"></form></td></tr>
     </table>
 </form>
