@@ -6,7 +6,7 @@ INTERVAL=5
 while (true)
 do
   result=$(ping -c 1 $ADDRESS)
-  ping=$(echo $result | sed -r 's|.*time=([0-9.]*) ms|\1|g' | sed -r 's| --- .*ms||g')
+  ping=$(echo $result | sed -r 's|.*time=([0-9.]*) ms|\1|g; s| --- .*ms||g; s|PING.*data\.|\-100|g')
   echo $(date +%s) $ping
   sleep $INTERVAL
 done
