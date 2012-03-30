@@ -14,14 +14,20 @@ foreach($file as $line) {		// Read the file line by line
 ksort($pings);				// Make sure that the values are
 					// chronological order
 
-$graph = new Graph(1280,720);
+if($_GET['mode'] == 0) {		// Fixed mode
+    $graph = new Graph($_GET['sizex'],$_GET['sizey']);
+} elseif($_GET['mode'] == 1) {		// Scaled mode
+    $graph = new Graph(count($pings)/50*$_GET['factor'],$_GET['sizey']);
+} else {
+    $graph = new Graph(800,600);
+}
 
 $graph->SetScale('datelin');
 $graph->SetTickDensity(TICKD_DENSE,1);
 $graph->xaxis->SetLabelAngle(90);
 $graph->xaxis->SetLabelAlign('right','top','right');
 
-$graph->SetMargin(40,20,20,200);
+$graph->SetMargin(40,20,20,70);
 
 $xvalues = Array();
 
