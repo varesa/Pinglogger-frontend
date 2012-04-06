@@ -14,6 +14,7 @@ foreach($file as $line) {		// Read the file line by line
 ksort($pings);				// Make sure that the values are
 					// chronological order
 
+
 if($_GET['mode'] == 0) {		// Fixed mode
     $graph = new Graph($_GET['sizex'],$_GET['sizey']);
 } elseif($_GET['mode'] == 1) {		// Scaled mode
@@ -29,11 +30,6 @@ $graph->xaxis->SetLabelAlign('right','top','right');
 
 $graph->SetMargin(40,20,20,70);
 
-$xvalues = Array();
-
-foreach(array_keys($pings) as $num => $epoch) {
-  $xvalues[$num] = date("H:i:s",$epoch);
-}
 
 $plot = new LinePlot(array_values($pings),array_keys($pings));
 $plot->SetColor('black');
