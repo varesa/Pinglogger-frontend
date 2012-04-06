@@ -35,15 +35,11 @@ foreach(array_keys($pings) as $num => $epoch) {
   $xvalues[$num] = date("H:i:s",$epoch);
 }
 
-//print_r($xvalues);
-
 $plot = new LinePlot(array_values($pings),array_keys($pings));
 $plot->SetColor('black');
 
 $graph->Add($plot);
 
 $graph->Stroke();
-
-//print_r($pings);
 
 ?> 
