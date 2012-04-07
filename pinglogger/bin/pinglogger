@@ -2,8 +2,17 @@
 
 ADDRESS=3g-testi.dy.fi
 INTERVAL=5
+run=true
 
-while (true)
+echo $$ > pidfile
+
+on_close() {
+    run=false
+}
+
+trap 'on_close' TERM
+
+while ($run)
 do
   result=$(ping -c 1 $ADDRESS)
   ping=$(echo $result | sed -r 's|.*time=([0-9.]*) ms|\1|g; s| --- .*ms||g; s|PING.*data\.|\-100|g')
