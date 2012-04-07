@@ -4,12 +4,12 @@ Tool to display latencies and breakages of connection to host
 TODO:
 - tallenna ip:n muutokset
 - näytä ip:n muutokset pystyviivalla
-- korosta yhteyskatkot
-- rakenna koffaus
+o korosta yhteyskatkot -  osittain tehty
 - rakenna käynnistys
 - otsikko gui:n kuvaan
-- latauslinkki kuvalle
-- tiedoston "lyhennys
-x (Ota käyttöön jonkinlainen cache-toiminto) x
+o latauslinkki kuvalle - osittain tehty
+- tiedoston "lyhennys"
 - sähköpostihälytykset, yhteys pitkään poikki 
 - Vähennä pisteitä joista kuvaaja tehdään
+T rakenna konffaus -  Tehty
+h (Ota käyttöön jonkinlainen cache-toiminto) hylätty
