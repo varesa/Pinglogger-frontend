@@ -90,6 +90,14 @@ usage() {
 # Startpoint - handle args #
 ############################
 
+# Check that the directories exist everytime this script gets executed
+dirError=false
+if [ ! -d $ConfDir ]; then echo "Configuration-directory \"$ConfDir\" does not exist. Please check you global configuration or create it"; dirError=true; fi
+if [ ! -d $PidDir ]; then echo "Pid-directory \"$PidDir\" does not exist. Please check you global configuration or create it"; dirError=true; fi
+if [ ! -d $LogDir ]; then echo "Log-directory \"$LogDir\" does not exist. Please check you global configuration or create it"; dirError=true; fi
+
+if [ $dirError ]; then exit; fi
+
 case $1 in
     start) start $2
            ;;
