@@ -1,0 +1,64 @@
+#/bin/bash
+# pingloggerctl
+#
+# Controls instances of pinglogger-scripts
+
+source ../conf/global.conf
+
+start() {
+    echo "start"
+}
+
+stop() {
+    echo "stop"
+}
+
+list() {
+    for inst in $BaseDir/$ConfDir/*
+    do
+        name=$(echo $inst | sed -r "s|$BaseDir/$ConfDir/(.*)|\1|g")
+        if [ -a $BaseDir/$PidDir/$name.pid ]; then
+	    pid=$(cat $BaseDir/$PidDir/$name.pid)
+	    if [[ "$(ps -A | grep $pid)" ]]; then
+		state="running"
+	    else
+		state="dead, pidfile present"
+	    fi
+	else
+	    state="not running"
+	fi
+    done
+    echo $name: $state
+}
+
+startall() {
+    echo "startall"
+}
+
+stopall() {
+    echo "stopall"
+}
+
+usage() {
+    echo "pingloggerctl start|stop|list|startall|stopall [instance]"
+}
+
+case $1 in
+    start) start
+           ;;
+
+    stop)  stop
+           ;;
+
+    list)  list
+           ;;
+
+    startall) startall
+              ;;
+
+    stopall)  stopall
+              ;;
+
+    *)   usage
+         ;;
+esac
