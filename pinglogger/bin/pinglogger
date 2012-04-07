@@ -3,12 +3,15 @@
 #
 # Logs latency of a connection and other variables
 
+ConfigName=$2
+source $1 				# Global vars
+source $BaseDir/$ConfDir/$ConfigName	# Instance-config
 
-ADDRESS=3g-testi.dy.fi
-INTERVAL=5
 run=true
 
-echo $$ > pidfile
+#configname=$(echo $1 | sed -r "s|$BaseDir/$ConfDir/(.*)|\1|g")
+
+echo $$ > $BaseDir/$PidDir/$ConfigName.pid
 
 on_close() {
     run=false
@@ -18,8 +21,8 @@ trap 'on_close' TERM
 
 while ($run)
 do
-  result=$(ping -c 1 $ADDRESS)
+  result=$(ping -c 1 $Address)
   ping=$(echo $result | sed -r 's|.*time=([0-9.]*) ms|\1|g; s| --- .*ms||g; s|PING.*data\.|\-100|g')
-  echo $(date +%s) $ping
-  sleep $INTERVAL
+  echo $(date +%s) $ping >> $BaseDir/$Logdir/$ConfigName.log
+  sleep $Interval
 done
