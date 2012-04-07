@@ -1,0 +1,7 @@
+set xdata time
+set timefmt "%s"
+set terminal jpeg size 2000,600
+set output "kuva.jpg"
+set yrange [-100:]
+value(a) = (a-1+1)
+plot "log2" using 1:2:(value($3)) lc rgb variable
