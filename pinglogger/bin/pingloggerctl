@@ -3,11 +3,14 @@
 #
 # Controls instances of pinglogger-scripts
 
+GlobalConf="/var/www/html/grapher/pinglogger/conf/global.conf"
+
+
 ###############################
 # Source config and variables #
 ###############################
 
-source /var/www/html/grapher/pinglogger/conf/global.conf
+source $GlobalConf
 
 #########################
 # Functions declaration #
@@ -17,34 +20,34 @@ start() {
     if [ -z $1 ]; then
 	echo "Please provide a name of config to be started"
 	return
-    elif [ ! -e $BaseDir/$ConfDir/$1 ]; then
+    elif [ ! -e $ConfDir/$1 ]; then
 	echo "Config with name \"$1\" does not exist"
 	return
-    elif [ -e $BaseDir/$PidDir/$1.pid ]; then
+    elif [ -e $PidDir/$1.pid ]; then
 	echo "Logger with config \"$1\" is already running"
 	return
     fi
 
     echo "Starting $1"
-    nohup ./pinglogger $BaseDir/conf/global.conf $1 > /dev/null 2>&1 &
+    nohup ./pinglogger $GlobalConf $1 > /dev/null 2>&1 &
 }
 
 stop() {
     if [ -z $1 ]; then
 	echo "Please provide a name of config to be stopped"
 	return
-    elif [ ! -e $BaseDir/$ConfDir/$1 ]; then
+    elif [ ! -e $ConfDir/$1 ]; then
 	echo "Config with name \"$1\" does not exist"
 	return
-    elif [ ! -e $BaseDir/$PidDir/$1.pid ]; then
+    elif [ ! -e $PidDir/$1.pid ]; then
 	echo "Logger with config \"$1\" is not running"
 	return
     fi
 
-    pid=$(cat $BaseDir/$PidDir/$1.pid)
+    pid=$(cat $PidDir/$1.pid)
     if [[ ! "$(ps -A | grep $pid)" ]]; then
 	echo "Pid-file exists, but can't find the process, removing pid-file"
-	rm $BaseDir/$PidDir/$1.pid
+	rm $PidDir/$1.pid
 	return
     fi
     
@@ -53,16 +56,16 @@ stop() {
 }
 
 list() {
-    for inst in $BaseDir/$ConfDir/*
+    for inst in $ConfDir/*
     do
-        name=$(echo $inst | sed -r "s|$BaseDir/$ConfDir/(.*)|\1|g")
-        if [ -e $BaseDir/$PidDir/$name.pid ]; then
-	    pid=$(cat $BaseDir/$PidDir/$name.pid)
+        name=$(echo $inst | sed -r "s|$ConfDir/(.*)|\1|g")
+        if [ -e $PidDir/$name.pid ]; then
+	    pid=$(cat $PidDir/$name.pid)
 	    if [[ "$(ps -A | grep $pid)" ]]; then
 		state="running"
 	    else
 		state="dead, pidfile present, removing"
-		rm $BaseDir/$PidDir/$name.pid
+		rm $PidDir/$name.pid
 	    fi
 	else
 	    state="not running"

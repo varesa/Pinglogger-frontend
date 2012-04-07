@@ -5,13 +5,13 @@
 
 ConfigName=$2
 source $1 				# Global vars
-source $BaseDir/$ConfDir/$ConfigName	# Instance-config
+source $ConfDir/$ConfigName		# Instance-config
 
 run=true
 
 #configname=$(echo $1 | sed -r "s|$BaseDir/$ConfDir/(.*)|\1|g")
 
-echo $$ > $BaseDir/$PidDir/$ConfigName.pid
+echo $$ > $PidDir/$ConfigName.pid
 
 on_close() {
     run=false
@@ -23,8 +23,8 @@ while ($run)
 do
   result=$(ping -c 1 $Address)
   ping=$(echo $result | sed -r 's|.*time=([0-9.]*) ms|\1|g; s| --- .*ms||g; s|PING.*data\.|\-100|g')
-  echo $(date +%s) $ping >> $BaseDir/$LogDir/$ConfigName.log
+  echo $(date +%s) $ping >> $LogDir/$ConfigName.log
   sleep $Interval
 done
 
-rm $BaseDir/$PidDir/$ConfigName.pid
+rm $PidDir/$ConfigName.pid
