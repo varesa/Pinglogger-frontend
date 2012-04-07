@@ -23,7 +23,7 @@ while ($run)
 do
   result=$(ping -c 1 $Address)
   ping=$(echo $result | sed -r 's|.*time=([0-9.]*) ms|\1|g; s| --- .*ms||g; s|PING.*data\.|\-100|g')
-  echo $(date +%s) $ping >> $BaseDir/$Logdir/$ConfigName.log
+  echo $(date +%s) $ping >> $BaseDir/$LogDir/$ConfigName.log
   sleep $Interval
 done
 
