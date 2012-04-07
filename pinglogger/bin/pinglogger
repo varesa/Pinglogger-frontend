@@ -26,3 +26,5 @@ do
   echo $(date +%s) $ping >> $BaseDir/$Logdir/$ConfigName.log
   sleep $Interval
 done
+
+rm $BaseDir/$PidDir/$ConfigName.pid
