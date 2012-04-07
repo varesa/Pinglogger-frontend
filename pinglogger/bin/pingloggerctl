@@ -3,10 +3,27 @@
 #
 # Controls instances of pinglogger-scripts
 
+###############################
+# Source config and variables #
+###############################
+
 source ../conf/global.conf
 
+#########################
+# Functions declaration #
+#########################
+
 start() {
-    echo "start"
+    if [ -z $1 ]; then
+	echo "Please provide a name of config to be started"
+	return
+    elif [ ! -e $BaseDir/$ConfDir/$1 ]; then
+	echo "Config with name \"$1\" does not exist"
+    elif [ -e $BaseDir/$PidDir/$1.pid ]; then
+	echo "Logger with config \"$1\" is already running"
+    fi
+    
+    nohup ./pinglogger $BaseDir/$ConfDir/$1 $BaseDir/conf/global.conf &
 }
 
 stop() {
@@ -17,7 +34,7 @@ list() {
     for inst in $BaseDir/$ConfDir/*
     do
         name=$(echo $inst | sed -r "s|$BaseDir/$ConfDir/(.*)|\1|g")
-        if [ -a $BaseDir/$PidDir/$name.pid ]; then
+        if [ -e $BaseDir/$PidDir/$name.pid ]; then
 	    pid=$(cat $BaseDir/$PidDir/$name.pid)
 	    if [[ "$(ps -A | grep $pid)" ]]; then
 		state="running"
@@ -43,8 +60,12 @@ usage() {
     echo "pingloggerctl start|stop|list|startall|stopall [instance]"
 }
 
+############################
+# Startpoint - handle args #
+############################
+
 case $1 in
-    start) start
+    start) start $2
            ;;
 
     stop)  stop
