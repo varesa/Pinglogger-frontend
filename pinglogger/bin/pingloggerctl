@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/env bash
 # pingloggerctl
 #
 # Controls instances of pinglogger-scripts
@@ -7,7 +7,7 @@
 # Source config and variables #
 ###############################
 
-source ../conf/global.conf
+source /var/www/html/grapher/pinglogger/conf/global.conf
 
 #########################
 # Functions declaration #
@@ -19,15 +19,37 @@ start() {
 	return
     elif [ ! -e $BaseDir/$ConfDir/$1 ]; then
 	echo "Config with name \"$1\" does not exist"
+	return
     elif [ -e $BaseDir/$PidDir/$1.pid ]; then
 	echo "Logger with config \"$1\" is already running"
+	return
     fi
-    
-    nohup ./pinglogger $BaseDir/$ConfDir/$1 $BaseDir/conf/global.conf &
+
+    echo "Starting $1"
+    nohup ./pinglogger $BaseDir/conf/global.conf $1 &
 }
 
 stop() {
-    echo "stop"
+    if [ -z $1 ]; then
+	echo "Please provide a name of config to be stopped"
+	return
+    elif [ ! -e $BaseDir/$ConfDir/$1 ]; then
+	echo "Config with name \"$1\" does not exist"
+	return
+    elif [ ! -e $BaseDir/$PidDir/$1.pid ]; then
+	echo "Logger with config \"$1\" is not running"
+	return
+    fi
+
+    pid=$(cat $BaseDir/$PidDir/$1.pid)
+    if [[ ! "$(ps -A | grep $pid)" ]]; then
+	echo "Pid-file exists, but can't find the process, removing pid-file"
+	rm $BaseDir/$PidDir/$1.pid
+	return
+    fi
+    
+    echo "Stopping $1"
+    kill $pid
 }
 
 list() {
@@ -39,7 +61,8 @@ list() {
 	    if [[ "$(ps -A | grep $pid)" ]]; then
 		state="running"
 	    else
-		state="dead, pidfile present"
+		state="dead, pidfile present, removing"
+		rm $BaseDir/$PidDir/$name.pid
 	    fi
 	else
 	    state="not running"
@@ -68,7 +91,7 @@ case $1 in
     start) start $2
            ;;
 
-    stop)  stop
+    stop)  stop $2
            ;;
 
     list)  list
