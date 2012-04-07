@@ -14,9 +14,9 @@ foreach($file as $line) {		// Read the file line by line
 ksort($pings);				// Make sure that the values are
 					// chronological order
 
-if($_GET['mode'] == 0) {		// Fixed mode
+if($_GET['mode'] == 1) {		// Fixed mode
     $graph = new Graph($_GET['sizex'],$_GET['sizey']);
-} elseif($_GET['mode'] == 1) {		// Scaled mode
+} elseif($_GET['mode'] == 2) {		// Scaled mode
     $graph = new Graph(count($pings)/50*$_GET['factor'],$_GET['sizey']);
 } else {
     $graph = new Graph(800,600);

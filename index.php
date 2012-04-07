@@ -18,9 +18,9 @@
     }
     
     if($_GET['scale'] != null) {
-	$mode=1;
+	$mode=2;
     } else {				//If not scaling, must be fixed
-	$mode=0;
+	$mode=1;
     }
 ?>
 
