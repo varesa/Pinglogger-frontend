@@ -1,4 +1,8 @@
 #!/bin/env bash
+# pinglogger
+#
+# Logs latency of a connection and other variables
+
 
 ADDRESS=3g-testi.dy.fi
 INTERVAL=5
