@@ -67,8 +67,8 @@ list() {
 	else
 	    state="not running"
 	fi
+	echo $name: $state
     done
-    echo $name: $state
 }
 
 startall() {
