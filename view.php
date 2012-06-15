@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	</head>
-	<body>
+
 	<?php
 	
 	function getConfig($filename) {
@@ -23,7 +21,8 @@
 	
 	
 	if(isset($_GET['file']) && $_GET['file'] != "") {
-	    $file = rtrim($config['path_to_logs'],"/") . "/" . $_GET['file'];
+	    $filename = $_GET['file'];
+	    $file = rtrim($config['path_to_logs'],"/") . "/" . $filename;
 	} else {
 	    exit("Please use with the GET parameter 'file', which points to the logfile to be viewed");
 	}
@@ -33,6 +32,12 @@
 	}
 
 	?>
+
+	<head>
+	    <title><?php print("Viewing $filename ($file)"); ?></title>
+	</head>
+	<body>
+	
 	
 	</body>
 </html>
