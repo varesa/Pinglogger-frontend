@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<?php
 	
 	function getConfig($filename) {
@@ -38,17 +37,17 @@
 	</head>
 	<body>
 	
-	<div id="loading">Please wait while the log is rendered</div>
-	<?php 
-	    flush();
-	    ob_flush();
-	    #exec("render_script");
-	    sleep(2);
-	?>
+	    <div id="loading">Please wait while the log is rendered</div>
+	    <?php 
+	        flush();
+		ob_flush();
+	        #exec("render_script");
+		sleep(2);
+	    ?>
 	
-	<script type="text/javascript">
-	document.getElementById("loading").style.display = 'none';
-	</script>
+	    <script type="text/javascript">
+		document.getElementById("loading").style.display = 'none';
+	    </script>
 	
 	</body>
 </html>
