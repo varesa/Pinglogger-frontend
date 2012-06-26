@@ -34,7 +34,7 @@
 	?>
 
 	<head>
-	    <title><?php print("Viewing $filename ($file)"); ?></title>
+	    <title><?php print("Log: $filename ($file)"); ?></title>
 	</head>
 	<body>
 	
