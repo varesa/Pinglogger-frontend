@@ -11,6 +11,25 @@
 	    return $config;
 	}
 	
+	function renderGraph($sizex, $sizey, $fin) {
+	    echo "<pre>";
+	    exec("python logFormater.py $fin temp.log 2>&1",$output);
+	    print_r($output);
+	    unset($output);
+	
+	    $fout = "temp_name.jpg";
+	    $gnuplotcmd = 'set xdata time;set timefmt "%s";set terminal jpeg size 2000,600;set output "' . $fout . '";set yrange [-100:];plot "temp.log" using 1:2:($3) lc rgb variable';
+	    $cmd = "echo abc && /usr/bin/gnuplot -e '$gnuplotcmd'  2>&1";
+	    
+	    print $cmd;
+	    exec($cmd, $output);
+	    echo "<br><br>";
+	    print_r($output); 
+	    echo "<br><br>";
+	    echo "</pre>";
+	    return $fout;
+	}
+	
 	
 	###############
 	# Entry point #
@@ -41,8 +60,12 @@
 	    <?php 
 	        flush();
 		ob_flush();
-	        #exec("render_script");
-		sleep(2);
+		
+		#$file = "/opt/pinglogger/log/www.google.com2.log";
+		#$file = "log2";
+		
+	        $fname = renderGraph(800,600,$file);
+	        echo "render complete?";
 	    ?>
 	
 	    <script type="text/javascript">
@@ -51,3 +74,4 @@
 	
 	</body>
 </html>
+
