@@ -12,21 +12,25 @@
 	}
 	
 	function renderGraph($sizex, $sizey, $fin) {
-	    echo "<pre>";
+	    ##echo "<pre>";
+	    
 	    exec("python logFormater.py $fin temp.log 2>&1",$output);
-	    print_r($output);
+	    ##print_r($output);
 	    unset($output);
 	
 	    $fout = "temp.jpg";
 	    $gnuplotcmd = 'set xdata time;set timefmt "%s";set terminal jpeg size 2000,600;set output "' . $fout . '";set yrange [-100:];plot "temp.log" using 1:2:($3) lc rgb variable';
 	    $cmd = "echo abc && /usr/bin/gnuplot -e '$gnuplotcmd'  2>&1";
 	    
-	    print $cmd;
+	    ##print $cmd;
+	    ##echo "<br><br>";
+	    
 	    exec($cmd, $output);
-	    echo "<br><br>";
-	    print_r($output); 
-	    echo "<br><br>";
-	    echo "</pre>";
+	    ##print_r($output);
+	    unset($output);
+	     
+	    ##echo "<br><br>";
+	    ##echo "</pre>";
 	    return $fout;
 	}
 	
@@ -62,12 +66,14 @@
 		ob_flush();
 		
 	        $fname = renderGraph(800,600,$file);
-	        echo "render complete?";
+	        ##echo "render complete?";
 	    ?>
 	
 	    <script type="text/javascript">
 		document.getElementById("loading").style.display = 'none';
 	    </script>
+	    
+	    <img src="temp.jpg">
 	
 	</body>
 </html>
