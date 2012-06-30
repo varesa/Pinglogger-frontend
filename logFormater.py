@@ -26,7 +26,7 @@ for line in fi:
     try:
 	values[1]=values[1].strip()
 	#print(values[1])
-	if float(values[1]) < float(0):
+	if float(values[1]) < float(0) or float(values[1]) > float(2000):
 	    values.append(65536*255  + 255*0   + 1*0  )
 	    values[1] = -10
 	    #print("-100")
