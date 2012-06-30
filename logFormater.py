@@ -1,3 +1,5 @@
+#!/bin/env python
+
 import sys
 
 fnamein  = sys.argv[1]
@@ -13,8 +15,11 @@ print("in: " + fnamein + ", out: " + fnameout)
 fi = open(fnamein,  'r')
 fo = open(fnameout, 'w')
 
+fo.write(fi.readlines()[0].split(' ')[0].strip() + ' 100 0\n')
+
 errors = 0
 
+fi.seek(0)
 for line in fi:
     values=line.split(' ')
     #print(values)
@@ -23,6 +28,7 @@ for line in fi:
 	#print(values[1])
 	if float(values[1]) < float(0):
 	    values.append(65536*255  + 255*0   + 1*0  )
+	    values[1] = -10
 	    #print("-100")
 	else:
 	    values.append(65536*0    + 255*0   + 1*255)
