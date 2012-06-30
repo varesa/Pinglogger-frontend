@@ -28,7 +28,7 @@ for line in fi:
 	#print(values[1])
 	if float(values[1]) < float(0) or float(values[1]) > float(2000):
 	    values.append(65536*255  + 255*0   + 1*0  )
-	    values[1] = -10
+	    values[1] = -7
 	    #print("-100")
 	else:
 	    values.append(65536*0    + 255*0   + 1*255)
