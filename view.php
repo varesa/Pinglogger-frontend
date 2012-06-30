@@ -19,7 +19,7 @@
 	    unset($output);
 	
 	    $fout = "temp.jpg";
-	    $gnuplotcmd = 'set xdata time;set timefmt "%s";set terminal jpeg size 2000,600;set output "' . $fout . '";set yrange [-100:];plot "temp.log" using 1:2:($3) lc rgb variable';
+	    $gnuplotcmd = 'set xdata time;set timefmt "%s";set terminal jpeg size 2000,600;set output "' . $fout . '";set yrange [-10:];plot "temp.log" using 1:2:3 lc rgb variable';
 	    $cmd = "echo abc && /usr/bin/gnuplot -e '$gnuplotcmd'  2>&1";
 	    
 	    ##print $cmd;
