@@ -15,7 +15,7 @@ print("in: " + fnamein + ", out: " + fnameout)
 fi = open(fnamein,  'r')
 fo = open(fnameout, 'w')
 
-fo.write(fi.readlines()[0].split(' ')[0].strip() + ' 100 0\n')
+fo.write(fi.readlines()[0].split(' ')[0].strip() + ' 100 ' + str(255*65536 + 255*255 + 255*1) + '\n')
 
 errors = 0
 
