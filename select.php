@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	    <script language="javascript" type="text/javascript" src="datetimepicker.js"></script>
 	</head>
 	<body>
+	
 	<?php
 	
 	function getConfig($filename) {
@@ -37,15 +39,28 @@
 	$config = getConfig("viewer.conf");
 	?>
 	
-	<table>
-	<th colspan=2>Please select a logfile to be viewed:</th>
+	<table border=1>
+	    <tr><td colspan=2>
+	        <table style="width:100%;">
+		    <th colspan=2>Please select a logfile to be viewed:</th>
 	
-	    <?php
-	    foreach(getFiles($config) as $file) {
-		print("<tr><td>" . $file . "&nbsp;&nbsp;</td><td><a href='view.php?file=" . $file . "'>View</a></td></tr>");
-	    }
+		    <?php
+			foreach(getFiles($config) as $file) {
+			    print("<tr><td>" . $file . "&nbsp;&nbsp;</td><td align=\"right\"><a href='view.php?file=" . $file . "'>View</a></td></tr>");
+			}
 		
-	    ?>
+		    ?>
+		</table>
+	    </td></tr>
+	    <tr>
+		<td> <!-- Date picker - begin -->
+		    <b>Please select the beginning of the range:</b> <br>
+		    <input type="text" id="date-begin" size="25"> <a href="javascript:NewCal('date-begin', 'ddmmyyyy', true)"><img src="cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
+		</td>
+		<td> <!-- Date picker - end -->
+		    <b>Please select the end of the range:</b> <br>
+		    <input type="text" id="date-end" size="25"> <a href="javascript:NewCal('date-end', 'ddmmyyyy', true)"><img src="cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
+		</td>
 	</table>
 
 	</body>
