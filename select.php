@@ -2,6 +2,19 @@
 <html>
 	<head>
 	    <script language="javascript" type="text/javascript" src="datetimepicker.js"></script>
+	    <script language="javascript" type="text/javascript">
+		function validate(form) {
+		    var rbuttons = document.forms["logselect"]["file"];
+		    for(var x = 0; x < rbuttons.length; x++) {
+			if(rbuttons[x].checked) {
+			    return true;
+			}
+		    }
+		    alert("Please select the log to be viewed");
+		    return false;
+		}
+	    </script>
+	    
 	</head>
 	<body>
 	
@@ -39,14 +52,16 @@
 	$config = getConfig("viewer.conf");
 	?>
 	
-	<table border=1>
+	<form name="logselect" method="get" action="view.php" onsubmit="return validate(this);">
+	
+	<table border=1 cellpadding=10>
 	    <tr><td colspan=2>
 	        <table style="width:100%;">
 		    <th colspan=2>Please select a logfile to be viewed:</th>
 	
 		    <?php
 			foreach(getFiles($config) as $file) {
-			    print("<tr><td>" . $file . "&nbsp;&nbsp;</td><td align=\"right\"><a href='view.php?file=" . $file . "'>View</a></td></tr>");
+			    print('<tr><td><input type="radio" name="file" value="' . $file . '"> ' . $file . "&nbsp;&nbsp;</td></tr>");
 			}
 		
 		    ?>
@@ -61,7 +76,13 @@
 		    <b>Please select the end of the range:</b> <br>
 		    <input type="text" id="date-end" size="25"> <a href="javascript:NewCal('date-end', 'ddmmyyyy', true)"><img src="cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
 		</td>
+	
+	    <tr>
+		<td colspan=2>Show: <input type=submit value="Selected range"> <input type="submit" value="Full file"></td>
+	    </tr>
 	</table>
+	
+	</form>
 
 	</body>
 </html>
