@@ -78,7 +78,7 @@
 		</td>
 	
 	    <tr>
-		<td colspan=2>Show: <input type=submit value="Selected range"> <input type="submit" value="Full file"></td>
+		<td colspan=2>Show: <input type=submit name="selectedrange" value="Selected range"> <input type="submit" name="fullrange" value="Full file"></td>
 	    </tr>
 	</table>
 	
