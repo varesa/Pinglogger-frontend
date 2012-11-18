@@ -70,11 +70,11 @@
 	    <tr>
 		<td> <!-- Date picker - begin -->
 		    <b>Please select the beginning of the range:</b> <br>
-		    <input type="text" id="date-begin" size="25"> <a href="javascript:NewCal('date-begin', 'ddmmyyyy', true)"><img src="js/cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
+		    <input type="text" id="date-begin" name="date-begin" size="25"> <a href="javascript:NewCal('date-begin', 'ddmmyyyy', true)"><img src="js/cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
 		</td>
 		<td> <!-- Date picker - end -->
 		    <b>Please select the end of the range:</b> <br>
-		    <input type="text" id="date-end" size="25"> <a href="javascript:NewCal('date-end', 'ddmmyyyy', true)"><img src="js/cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
+		    <input type="text" id="date-end" name="date-end" size="25"> <a href="javascript:NewCal('date-end', 'ddmmyyyy', true)"><img src="js/cal.gif" width=16 height=16 border=0 alt="Pick a date"></a>
 		</td>
 	
 	    <tr>
