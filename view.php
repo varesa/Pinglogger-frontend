@@ -12,25 +12,17 @@
 	}
 	
 	function renderGraph($sizex, $sizey, $fin) {
-	    ##echo "<pre>";
 	    
 	    exec("python logFormater.py $fin temp.log 2>&1",$output);
-	    ##print_r($output);
 	    unset($output);
 	
 	    $fout = "temp.jpg";
 	    $gnuplotcmd = 'set xdata time;set timefmt "%s"; set terminal jpeg size 2000,600; set output "' . $fout . '"; set xzeroaxis lt 20; set yrange [-10:]; plot "temp.log" using 1:2:3 lc rgb variable';
 	    $cmd = "echo abc && /usr/bin/gnuplot -e '$gnuplotcmd'  2>&1";
 	    
-	    ##print $cmd;
-	    ##echo "<br><br>";
-	    
 	    exec($cmd, $output);
-	    ##print_r($output);
 	    unset($output);
 	     
-	    ##echo "<br><br>";
-	    ##echo "</pre>";
 	    return $fout;
 	}
 	
@@ -66,7 +58,6 @@
 		ob_flush();
 		
 	        $fname = renderGraph(800,600,$file);
-	        ##echo "render complete?";
 	    ?>
 	
 	    <script type="text/javascript">
